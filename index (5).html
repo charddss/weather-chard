@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Update - Iligan City</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 50px;
+        padding: 100px;
+        background-image: url("https://img.freepik.com/free-photo/dark-clouds-sunset-sky-dark-water-ocean_181624-9803.jpg");
+        background-size: cover;
+        color: #4ca3f5;
+        line-height: 1.6;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: rgba(
+          65,
+          63,
+          63,
+          0.8
+        ); /* White background with some opacity */
+        box-shadow: 15px 15px 15px rgba(114, 17, 17, 0.2);
+        border-radius: 20px;
+        border-style: double;
+        border-width: 10px;
+        border-color: #2ebbb4;
+      }
+      header h1 {
+        text-align: center;
+        padding: 10px;
+        background-color: #304849;
+        color: #beafaf;
+        border-radius: 10px;
+        border-style: solid;
+        border-width: 5px;
+      }
+      .weather-info h1 {
+        text-align: center;
+        margin: 20px 0;
+        border-radius: 10px;
+        border-style: solid;
+      }
+      .weather-info p {
+        font-size: 1.2em;
+        margin: 20px;
+        color: #92a3a8;
+        border-style: solid;
+        border-width: 5px;
+        border-radius: 10px;
+      }
+      .footer p {
+        margin: 0;
+        font-size: 1em;
+        background-color: #444949;
+        text-align: center;
+        border-radius: 10px;
+        padding: 10px;
+      }
+      @media (max-width: 600px) {
+        .container {
+          padding: 10px;
+        }
+        header h1 {
+          font-size: 2em;
+        }
+        .weather-info h1 {
+          font-size: 1.5em;
+        }
+        .weather-info p {
+          font-size: 1em;
+        }
+        .footer p {
+          font-size: 0.9em;
+        }
+      }
+      .search-container {
+        background-color: #635ea83d;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(200, 16, 16, 0.1);
+        padding: 10px;
+        margin-top: 20px;
+      }
+      form {
+        display: flex;
+      }
+      .search-input {
+        padding: 10px;
+        border: 3px solid #ce0606;
+        border-radius: 5px 0 0 5px;
+        font-size: 16px;
+      }
+      .search-button {
+        padding: 10px 20px;
+        border: 1px solid #0e3f5f;
+        border-radius: 0 5px 5px 0;
+        background-color: #386391;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .search-button:hover {
+        background-color: #2f649c;
+      }
+      .forecast-container {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: rgba(56, 53, 53, 0.7);
+        border-radius: 20px;
+        box-shadow: 0 0 50px rgba(40, 119, 172, 0.2);
+      }
+      .forecast-container h2 {
+        text-align: center;
+        color: #e7c8c8;
+      }
+      .forecast-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        color: #f5f5f5;
+      }
+      .forecast-item:last-child {
+        border-bottom: none;
+      }
+      .day {
+        font-weight: bold;
+      }
+      .temp {
+        color: #ebdede;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Weather Update - Iligan City</h1>
+      </header>
+      <div id="weather" class="weather-info">
+        <h2>Iligan city</h2>
+        <p>Date:09/2/2024</p>
+        <p>Weather: Patchy light drizzle</p>
+        <p>Wind: 6 km/h</p>
+        <p>Temperature: 30°C</p>
+        <p>Humidity: 93%</p>
+      </div>
+      <div class="search-container">
+        <form action="#" method="get">
+          <input
+            type="text"
+            name="search"
+            placeholder="Search..."
+            class="search-input"
+          />
+          <button type="submit" class="search-button">Search</button>
+        </form>
+      </div>
+      <div class="forecast-container">
+        <h2>Weekly Forecast</h2>
+        <div class="forecast-item">
+          <span class="day">Monday</span>
+          <span class="temp">29°C, Light Rain</span>
+        </div>
+        <div class="forecast-item">
+          <span class="day">Tuesday</span>
+          <span class="temp">31°C, Mostly Sunny</span>
+        </div>
+        <div class="forecast-item">
+          <span class="day">Wednesday</span>
+          <span class="temp">30°C, Cloudy</span>
+        </div>
+        <div class="forecast-item">
+          <span class="day">Thursday</span>
+          <span class="temp">28°C, Showers</span>
+        </div>
+        <div class="forecast-item">
+          <span class="day">Friday</span>
+          <span class="temp">32°C, Sunny</span>
+        </div>
+      </div>
+      <div class="footer">
+        <p>RICHARD G. AGBONISA</p>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+        const apiKey = "f6189008c38c43b590560105241908";
+        const cityName = "Iligan";
+        const apiEndpoint = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityName}`;
+
+        const weatherContainer = document.getElementById("weather");
+
+        try {
+          const response = await fetch(apiEndpoint);
+          const weatherData = await response.json();
+
+          console.log(weatherData);
+
+          const temperatureInCelsius = weatherData.current.temp_c;
+          const weatherDescription = weatherData.current.condition.text;
+          const humidityLevel = weatherData.current.humidity;
+
+          weatherContainer.innerHTML = `
+                    <h2>${cityName}</h2>
+                    <p><strong>Temperature:</strong> ${temperatureInCelsius}°C</p>
+                    <p><strong>Weather:</strong> ${weatherDescription}</p>
+                    <p><strong>Humidity:</strong> ${humidityLevel}%</p>
+                `;
+        } catch (error) {
+          weatherContainer.innerHTML = `<p>Unable to retrieve weather data: ${error.message}</p>`;
+        }
+      });
+    </script>
+  </body>
+</html>
